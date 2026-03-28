@@ -80,6 +80,20 @@ if (process.env.NODE_ENV === 'development') {
 app.set('trust proxy', 1);
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    service: 'productivity-api',
+    message: 'API is running.',
+    docs: '/api/v1',
+    health: '/api/v1/health',
+  });
+});
+
+app.get('/health', (req, res) => {
+  res.redirect(302, '/api/v1/health');
+});
+
 app.use('/api/v1', router);
 
 // ─── 404 Handler ─────────────────────────────────────────────────────────────
